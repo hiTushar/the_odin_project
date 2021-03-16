@@ -53,13 +53,13 @@ function playRound(player, computer){
 
 
 function displayResults(points){
-    document.getElementById("results").innerHTML = `<p>You: ${points.you} | Computer: ${points.computer} | Draw: ${points.draw}</p>`
+    document.getElementById("results").innerHTML = `<p>You: ${points.you} | Computer: ${points.computer} | Draw: ${points.draw}</p>`;
 }
 
 function displayWinner(winner){
-    document.getElementById("arena").innerHTML = `<span>${winner.charAt(0).toUpperCase() + winner.slice(1)} won!!</span>`
+    document.getElementById("arena").innerHTML = `<span>${winner.charAt(0).toUpperCase() + winner.slice(1)} won!!</span>`;
 }
 
 function resetOption(){
-    document.getElementById('results').innerHTML += '<button onclick="location.reload()">Reset</button>'
+    document.getElementById('results').innerHTML += '<button onclick="location.reload()">Reset</button>';
 }
