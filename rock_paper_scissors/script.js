@@ -13,24 +13,6 @@ function select(event){
     game(event.target.id); 
 }
 
-function updateTable(winner){
-    pointsTable[winner]++;
-}
-
-function checkWin(){
-    let winner;
-    for(let x in pointsTable){
-        if(pointsTable[x] === 5){
-            winner = x; 
-        }
-    }
-
-    if(winner !== 'draw'){
-        displayWinner(winner); 
-        resetOption();
-    }
-}
-
 function game(playerSelection){
     let computerSelection = computerPlay(); 
     console.log(playerSelection, computerSelection);
@@ -43,9 +25,11 @@ function game(playerSelection){
     // console.log(pointsTable);
 }
 
+
 function computerPlay(){
     return choice[Math.floor(Math.random() * 3)]
 }
+
 
 function playRound(player, computer){
     let trial = [player, computer].sort().join(' '); // sorting reduces possible permutations
@@ -64,12 +48,29 @@ function playRound(player, computer){
     }
 }
 
+function updateTable(winner){
+    pointsTable[winner]++;
+}
+
 
 function displayResults(points){
     document.getElementById("results").innerHTML = `<p>You: ${points.you} | Computer: ${points.computer} | Draw: ${points.draw}</p>`;
 }
 
+function checkWin(){
+    for(let winner in pointsTable){
+        if(pointsTable[winner] === 5){
+            if(winner !== 'draw'){
+                displayWinner(winner); 
+                resetOption();
+            }
+        }
+    }
+}
+
+
 function displayWinner(winner){
+    console.log('winner: '+ winner);
     document.getElementById("arena").innerHTML = `<span>${winner.charAt(0).toUpperCase() + winner.slice(1)} won!!</span>`;
 }
 
