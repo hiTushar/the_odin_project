@@ -1,13 +1,50 @@
 const choice = ['paper', 'rock', 'scissors'];
 
-function computerPlay(){
-    return choice[Math.floor(Math.random() * 3)]
-}
-
 const outcomes = { // minimal possible outcomes
     'paper rock'    : 'paper',
     'paper scissors': 'scissors',
     'rock scissors' : 'rock'
+}
+
+let pointsTable = {'you': 0, 'computer': 0, 'draw': 0};
+
+
+function select(event){
+    game(event.target.id); 
+}
+
+function updateTable(winner){
+    pointsTable[winner]++;
+}
+
+function checkWin(){
+    let winner;
+    for(let x in pointsTable){
+        if(pointsTable[x] === 5){
+            winner = x; 
+        }
+    }
+
+    if(winner !== 'draw'){
+        displayWinner(winner); 
+        resetOption();
+    }
+}
+
+function game(playerSelection){
+    let computerSelection = computerPlay(); 
+    console.log(playerSelection, computerSelection);
+    let winner = playRound ( playerSelection, computerSelection );
+    
+    updateTable(winner);
+    displayResults(pointsTable); 
+    checkWin(); 
+   
+    // console.log(pointsTable);
+}
+
+function computerPlay(){
+    return choice[Math.floor(Math.random() * 3)]
 }
 
 function playRound(player, computer){
@@ -16,41 +53,26 @@ function playRound(player, computer){
     
     if(result){
         if(player === result){ // if it was the player who chose the winning result
-            // return `${player} beats ${computer}. You Win!!`;
-            return 'You';
+            return 'you';
         }
         else{
-            // return `${computer} beats ${player}. Computer Wins!!`;
-            return 'Computer';
+            return 'computer';
         }
     }
     else{ // undefined is returned in case of a draw
-        return 'Draw'; 
+        return 'draw'; 
     }
 }
 
-function game(n){
-    
-    let pointsTable = {'You': 0, 'Computer': 0, 'Draw': 0};
-    
-    while(n--){
-        let computerSelection = computerPlay(); 
 
-        let playerSelection = null;
-        while(!choice.includes(playerSelection)){
-            playerSelection = prompt(`You     - ${pointsTable.You} | Computer- ${pointsTable.Computer} | Draw    - ${pointsTable.Draw}\
-        \nRock, Paper or Scissors?`).toLowerCase(); 
-        }
-
-        let winner = playRound ( playerSelection, computerSelection );
-       
-        pointsTable[winner]++;
-
-        console.log(pointsTable);
-    }
-    alert(`You     : ${pointsTable.You} | Computer: ${pointsTable.Computer} | Draw    : ${pointsTable.Draw}`);
-    // alert(JSON.stringify(pointsTable));
+function displayResults(points){
+    document.getElementById("results").innerHTML = `<p>You: ${points.you} | Computer: ${points.computer} | Draw: ${points.draw}</p>`;
 }
 
+function displayWinner(winner){
+    document.getElementById("arena").innerHTML = `<span>${winner.charAt(0).toUpperCase() + winner.slice(1)} won!!</span>`;
+}
 
-game(5); 
+function resetOption(){
+    document.getElementById('results').innerHTML += '<button onclick="location.reload()">Reset</button>';
+}
