@@ -29,7 +29,7 @@ function getValue(event){
     let value = event.target.textContent; 
     let temp;
     switch(value){
-        case 'DEL':
+        case 'DEL': // delete one character at a time
             temp = displayArray_bottom.join(' ');
             temp = temp.substr(0, temp.length - 1) // exclude the last character entered 
                        .trim() // trim() for removing the trailing whitespace after an entire number or an operator is deleted               
