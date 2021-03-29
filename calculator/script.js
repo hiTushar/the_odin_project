@@ -3,9 +3,15 @@ const DISPLAY = document.querySelector('.display');
 let displayArray_top = [];
 let displayArray_bottom = [];
 
+/*
+
+// dynamic (client-side) <button> rendering is of no use, since buttons are fixed in number. also makes it difficult to add custom features. 
+ 		// hence, hard-coding the <button> tags. 
+         
 window.onload = () => {
     keypadInit(); 
 }
+
 
 function keypadInit(){
     let keys = ['%', '+/-', 'C', 'DEL',
@@ -18,12 +24,19 @@ function keypadInit(){
     for(let key of keys){
         let button = document.createElement('button'); 
         button.innerHTML = key; 
-        button.id = key;
-        button.className = 'key';  
+        if(key === '.' || key === '%' || key === '+/-'){
+            button.className = 'key disabled';
+        }
+        else {
+            button.className = 'key';
+        }
+        
         button.addEventListener('click', getValue); 
         keypadSection.appendChild(button); 
     }   
 }
+*/
+
 
 function getValue(event){
     let value = event.target.textContent; 
@@ -108,7 +121,7 @@ function multiply(a, b){
     return a * b;
 }
 function divide(a, b){
-    return Number.parseFloat(a / b).toFixed(3); 
+    return parseFloat((a / b).toFixed(3)); 
 }
 
 function operator(a, b, op){
